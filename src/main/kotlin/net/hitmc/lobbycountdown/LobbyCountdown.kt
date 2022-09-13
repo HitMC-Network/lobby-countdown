@@ -1,14 +1,11 @@
 package net.hitmc.lobbycountdown
 
-import mu.KotlinLogging
 import net.hitmc.lobbycountdown.events.LCCancelCountdownEvent
 import net.hitmc.lobbycountdown.events.LCCountdownStartEvent
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.ServicePriority
 import org.bukkit.scheduler.BukkitTask
-
-val logger = KotlinLogging.logger("LobbyCountdownLogger")
 
 class LobbyCountdown(
     val plugin: Plugin,

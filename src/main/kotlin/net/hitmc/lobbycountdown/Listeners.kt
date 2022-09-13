@@ -1,5 +1,6 @@
 package net.hitmc.lobbycountdown
 
+import net.axay.kspigot.gui.openGUI
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -23,6 +24,6 @@ class Listeners : Listener {
     fun onInteract(event: PlayerInteractEvent) {
         val provider = servicesManager.getRegistration(LobbyCountdown::class.java)?.provider ?: return
         val hotbarItem = provider.items.firstOrNull { event.item == it.itemStack } ?: return
-        hotbarItem.gui.show(event.player)
+        event.player.openGUI(hotbarItem.gui)
     }
 }
