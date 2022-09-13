@@ -10,7 +10,7 @@ import org.bukkit.scheduler.BukkitTask
 class LobbyCountdown(
     val plugin: Plugin,
     val items: List<HotbarItem>,
-    val handler: CountdownHandler,
+    val countdownHandler: CountdownHandler? = null,
     val startValue: Int
 ) {
 
@@ -35,7 +35,7 @@ class LobbyCountdown(
             return
         }
         task = Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
-            handler.tick(countdown)
+            countdownHandler?.tick(countdown)
             if (countdown < 1) {
                 cancel(LCCancelCountdownEvent.Reason.COUNTDOWN_ZERO)
                 return@Runnable
