@@ -1,8 +1,12 @@
 package net.hitmc.lobbycountdown
 
+import net.axay.kspigot.chat.literalText
+import net.axay.kspigot.extensions.bukkit.title
 import net.hitmc.lobbycountdown.events.LCCancelCountdownEvent
 import net.hitmc.lobbycountdown.events.LCCountdownStartEvent
+import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
+import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.ServicePriority
 import org.bukkit.scheduler.BukkitTask
@@ -36,6 +40,18 @@ class LobbyCountdown(
         }
         task = Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
             countdownHandler?.tick(countdown)
+            if (countdownHandler != null) {
+                if (countdownHandler.messageValues.contains(countdown)) {
+                    for (onlinePlayer in Bukkit.getOnlinePlayers()) {
+                        countdownHandler.message(countdown, onlinePlayer)
+                    }
+                }
+                if (countdownHandler.titleValues.contains(countdown)) {
+                    for (onlinePlayer in Bukkit.getOnlinePlayers()) {
+                        countdownHandler.title(countdown, onlinePlayer)
+                    }
+                }
+            }
             if (countdown < 1) {
                 cancel(LCCancelCountdownEvent.Reason.COUNTDOWN_ZERO)
                 return@Runnable
@@ -56,5 +72,16 @@ class LobbyCountdown(
 
 interface CountdownHandler {
 
-    fun tick(value: Int): Boolean
+    val messageValues: MutableList<Int>
+        get() = mutableListOf(60, 50, 40, 30, 20, 15, 10, 5, 4, 3, 2, 1)
+
+    val titleValues: MutableList<Int>
+        get() = mutableListOf(60, 30, 15, 5, 4, 3, 2, 1)
+
+    fun tick(value: Int): Boolean = true
+
+    fun message(value: Int, player: Player) =
+        player.sendMessage(literalText("The game starts in $value seconds") { color = NamedTextColor.GREEN })
+
+    fun title(value: Int, player: Player) = player.title(literalText(value.toString()) { color = NamedTextColor.GREEN })
 }
