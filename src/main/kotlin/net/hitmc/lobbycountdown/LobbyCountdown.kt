@@ -90,4 +90,6 @@ interface CountdownHandler {
         player.sendMessage(literalText("The game starts in $value seconds") { color = NamedTextColor.GREEN })
 
     fun title(value: Int, player: Player) = player.title(literalText(value.toString()) { color = NamedTextColor.GREEN })
+
+    fun finished() = {}
 }
