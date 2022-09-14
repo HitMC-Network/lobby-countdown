@@ -7,7 +7,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 
-class Listeners : Listener {
+class Listeners(private val lobbyCountdown: LobbyCountdown) : Listener {
 
     private val servicesManager = Bukkit.getServicesManager()
 
@@ -17,6 +17,10 @@ class Listeners : Listener {
         val inventory = event.player.inventory
         for (item in provider.items) {
             inventory.setItem(item.slot, item.itemStack)
+        }
+        event.player.teleportAsync(lobbyCountdown.spawnLocation)
+        if (lobbyCountdown.startCountdown(lobbyCountdown, Bukkit.getOnlinePlayers().size)) {
+            lobbyCountdown.start()
         }
     }
 
