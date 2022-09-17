@@ -58,12 +58,13 @@ class LobbyCountdown(
                     }
                 }
             }
-            if (countdown < 1) {
+            if (countdown <= 0) {
                 cancel(LCCancelCountdownEvent.Reason.COUNTDOWN_ZERO)
+                countdownHandler?.finished()
                 return@Runnable
             }
             countdown--
-        }, 0L, 1L)
+        }, 0L, 20L)
     }
 
     fun cancel(reason: LCCancelCountdownEvent.Reason = LCCancelCountdownEvent.Reason.CUSTOM) {
@@ -73,6 +74,12 @@ class LobbyCountdown(
             return
         }
         task.cancel()
+    }
+
+    fun setCountdown(countdown: Int) {
+        task.cancel()
+        this.countdown = countdown
+        start()
     }
 }
 
@@ -91,5 +98,5 @@ interface CountdownHandler {
 
     fun title(value: Int, player: Player) = player.title(literalText(value.toString()) { color = NamedTextColor.GREEN })
 
-    fun finished() = {}
+    fun finished() {}
 }
