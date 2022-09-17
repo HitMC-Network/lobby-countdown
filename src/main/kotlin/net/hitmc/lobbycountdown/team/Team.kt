@@ -11,3 +11,10 @@ interface Team {
 
     fun join(player: Player)
 }
+
+fun Player.team(): TwoTeams? =
+    when {
+        TwoTeams.RED.players().contains(this) -> TwoTeams.RED
+        TwoTeams.BLUE.players().contains(this) -> TwoTeams.BLUE
+        else -> null
+    }
