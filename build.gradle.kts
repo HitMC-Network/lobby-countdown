@@ -10,6 +10,7 @@ plugins {
 
 group = "net.hitmc"
 version = "1.0.0"
+description = "Utility for minigame lobbies"
 
 repositories {
     mavenCentral()
@@ -23,7 +24,7 @@ dependencies {
 }
 
 license {
-    header(rootProject.file("LICENSE"))
+    header(rootProject.file("HEADER"))
     include("**/*.java", "**/*.kt")
     newLine(true)
 }

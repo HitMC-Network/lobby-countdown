@@ -1,2 +1,1 @@
-rootProject.name = "lobby-countdown"
-
+rootProject.name = "minigame-utils"
