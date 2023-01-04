@@ -16,12 +16,12 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.hitmc.lobbycountdown
+package net.hitmc.minigameutils
 
 import net.axay.kspigot.chat.literalText
 import net.axay.kspigot.extensions.bukkit.title
-import net.hitmc.lobbycountdown.events.LCCancelCountdownEvent
-import net.hitmc.lobbycountdown.events.LCCountdownStartEvent
+import net.hitmc.minigameutils.events.LCCancelCountdownEvent
+import net.hitmc.minigameutils.events.LCCountdownStartEvent
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -29,6 +29,7 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.ServicePriority
 import org.bukkit.scheduler.BukkitTask
+import java.util.function.BiFunction
 
 class LobbyCountdown(
     val plugin: Plugin,
@@ -38,6 +39,15 @@ class LobbyCountdown(
     val spawnLocation: Location,
     val startCountdown: LobbyCountdown.(Int) -> Boolean
 ) {
+
+    constructor(
+        plugin: Plugin,
+        items: List<HotbarItem>,
+        countdownHandler: CountdownHandler? = null,
+        startValue: Int,
+        spawnLocation: Location,
+        startCountdown: BiFunction<LobbyCountdown, Int, Boolean>
+    ) : this(plugin, items, countdownHandler, startValue, spawnLocation, { startCountdown(this, it) })
 
     var countdown: Int = startValue
         private set

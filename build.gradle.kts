@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "net.hitmc"
-version = "1.0.0"
+version = "1.0.1-SNAPSHOT"
 description = "Utility for minigame lobbies"
 
 repositories {

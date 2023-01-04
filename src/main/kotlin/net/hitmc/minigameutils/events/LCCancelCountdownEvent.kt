@@ -16,9 +16,9 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.hitmc.lobbycountdown.events
+package net.hitmc.minigameutils.events
 
-import net.hitmc.lobbycountdown.LobbyCountdown
+import net.hitmc.minigameutils.LobbyCountdown
 import org.bukkit.Bukkit
 import org.bukkit.event.Cancellable
 import org.bukkit.event.HandlerList

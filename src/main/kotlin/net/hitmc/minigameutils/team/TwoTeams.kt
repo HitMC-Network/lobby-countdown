@@ -16,17 +16,30 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.hitmc.lobbycountdown.team
+package net.hitmc.minigameutils.team
 
+import net.hitmc.minigameutils.team.TwoTeams.Companion.BLUE
+import net.hitmc.minigameutils.team.TwoTeams.Companion.RED
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import kotlin.math.roundToInt
 import kotlin.random.Random
 
+@Deprecated(
+    message = "TwoTeams got abstracted into SameSizedTeam and will experience no further support",
+    replaceWith = ReplaceWith("SameSizedTeam")
+)
+/**
+ * A class representing a constellation where two teams exist, in the best case with the equal amount of players.
+ * A team must have distinguishable colors, for example red and blue.
+ * @see RED
+ * @see BLUE
+ * @see SameSizedTeam
+ */
 class TwoTeams(override val color: NamedTextColor) : Team {
 
-    private val players: MutableSet<Player> = mutableSetOf()
+    override val players: MutableSet<Player> = mutableSetOf()
 
     override val name: String
         get() = color.toString()
@@ -72,9 +85,11 @@ class TwoTeams(override val color: NamedTextColor) : Team {
         private fun randomTeam() = if (Random.nextBoolean()) RED else BLUE
     }
 
-    override fun players() = players.toSet()
-
     override fun join(player: Player) {
+
+    }
+
+    override fun leave(player: Player) {
 
     }
 

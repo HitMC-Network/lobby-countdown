@@ -16,12 +16,9 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.hitmc.lobbycountdown.events
+package net.hitmc.minigameutils
 
-import net.hitmc.lobbycountdown.LobbyCountdown
-import org.bukkit.event.Event
+import net.axay.kspigot.gui.GUI
+import org.bukkit.inventory.ItemStack
 
-abstract class LCEvent : Event() {
-
-    abstract val lobbyCountdown: LobbyCountdown?
-}
+data class HotbarItem(val slot: Int, val itemStack: ItemStack, val gui: GUI<*>)

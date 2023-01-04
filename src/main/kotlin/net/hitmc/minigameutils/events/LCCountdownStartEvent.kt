@@ -16,25 +16,30 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.hitmc.lobbycountdown.team
+package net.hitmc.minigameutils.events
 
-import net.kyori.adventure.text.format.TextColor
-import org.bukkit.entity.Player
+import net.hitmc.minigameutils.LobbyCountdown
+import org.bukkit.Bukkit
+import org.bukkit.event.Cancellable
+import org.bukkit.event.HandlerList
 
-interface Team {
+class LCCountdownStartEvent : LCEvent(), Cancellable {
 
-    val color: TextColor
+    private var cancelled: Boolean = false
 
-    val name: String
+    override fun isCancelled(): Boolean = cancelled
 
-    fun players(): Set<Player>
-
-    fun join(player: Player)
-}
-
-fun Player.team(): TwoTeams? =
-    when {
-        TwoTeams.RED.players().contains(this) -> TwoTeams.RED
-        TwoTeams.BLUE.players().contains(this) -> TwoTeams.BLUE
-        else -> null
+    override fun setCancelled(cancel: Boolean) {
+        cancelled = cancel
     }
+
+    companion object {
+        @JvmStatic
+        val handlerList: HandlerList = HandlerList()
+    }
+
+    override val lobbyCountdown: LobbyCountdown?
+        get() = Bukkit.getServicesManager().getRegistration(LobbyCountdown::class.java)?.provider
+
+    override fun getHandlers(): HandlerList = handlerList
+}

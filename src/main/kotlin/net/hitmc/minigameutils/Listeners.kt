@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.hitmc.lobbycountdown
+package net.hitmc.minigameutils
 
 import net.axay.kspigot.gui.openGUI
 import org.bukkit.Bukkit
