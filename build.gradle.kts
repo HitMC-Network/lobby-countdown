@@ -10,7 +10,7 @@ plugins {
 
 group = "net.hitmc"
 version = "1.0.1-SNAPSHOT"
-description = "Utility for minigame lobbies"
+description = "Utility for minigames"
 
 repositories {
     mavenCentral()
@@ -52,13 +52,13 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
 }
 
-signing {
-    sign(publishing.publications)
-}
-
-configure<PublishingExtension> {
+publishing {
     repositories {
-        maven("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        maven(
+            if (project.version.toString()
+                    .endsWith("-SNAPSHOT")
+            ) "https://s01.oss.sonatype.org/content/repositories/snapshots/" else "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+        ) {
             name = "ossrh"
             credentials {
                 username = project.findProperty("sonatypeUsername") as String? ?: System.getenv("SONATYPE_USERNAME")
@@ -94,4 +94,8 @@ configure<PublishingExtension> {
             }
         }
     }
+}
+
+signing {
+    sign(publishing.publications[project.name])
 }
