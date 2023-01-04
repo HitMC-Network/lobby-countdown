@@ -1,6 +1,6 @@
 /*
  * minigame-utils is an collection for commonly needed functionalities when developing minigames for PaperMC.
- *     Copyright (C) 2022 JvstvsHD
+ *     Copyright (C) 2022-2023 JvstvsHD
  *
  *     This program is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
